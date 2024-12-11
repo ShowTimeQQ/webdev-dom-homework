@@ -8,7 +8,7 @@
 
   <body>
     <div class="container">
-      <ul class="comments">
+      <ul class="comments" id="list">
         <li class="comment">
           <div class="comment-header">
             <div>Глеб Фокин</div>
@@ -39,33 +39,97 @@
           <div class="comment-footer">
             <div class="likes">
               <span class="likes-counter">75</span>
-              <button class="like-button -active-like"></button>
+              <button class="like-button "></button>
             </div>
           </div>
         </li>
       </ul>
       <div class="add-form">
         <input
+          id="name"
           type="text"
           class="add-form-name"
           placeholder="Введите ваше имя"
         />
         <textarea
+          id="comment"
           type="textarea"
           class="add-form-text"
           placeholder="Введите ваш коментарий"
           rows="4"
         ></textarea>
         <div class="add-form-row">
-          <button class="add-form-button">Написать</button>
+          <button class="add-form-button" id="add">Написать</button>
         </div>
       </div>
     </div>
   </body>
-
   <script>
-    "use strict";
-    // Код писать здесь
-    console.log("It works!");
+    const button = document.getElementById("add");
+    const name = document.getElementById("name");
+    const list = document.getElementById("list");
+    const comment = document.getElementById("comment");
+    const date = getNowDate();
+
+    document.querySelectorAll('.like-button').forEach(el => 
+  el.addEventListener('click', () => makeLike(el)) 
+);
+
+function makeLike(el) {
+  
+  el.classList.toggle("-active-like");
+  
+}
+  // -active-like
+    button.addEventListener('click', function (e) {
+    
+
+    if (isEmptyField(name) && isEmptyField(comment)) {
+      
+      return false;
+    }
+    const oldHtml = list.innerHTML;
+    list.innerHTML = oldHtml + `<li class="comment">
+          <div class="comment-header">
+            <div>${name.value}</div>
+            <div>${date}</div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text">
+              ${comment.value}
+            </div>
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter">0</span>
+              <button class="like-button"></button>
+            </div>
+          </div>
+        </li>` ;
+    name.value = "";
+    comment.value = "";
+  document.querySelectorAll('.like-button').forEach(el => 
+  el.addEventListener('click', () => makeLike(el)) 
+);
+
+    });
+    
+    
+  
+    function getNowDate() {
+      const date = new Date();
+        return date.toLocaleTimeString('ru-RU', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+         hour: "2-digit",
+         minute: "2-digit"
+});
+    }
+    
+    function isEmptyField(field) {
+      return field.value === "";
+    }
+ 
   </script>
 </html>
