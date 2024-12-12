@@ -92,7 +92,7 @@ el.classList.toggle("-active-like");
     list.innerHTML = oldHtml + `<li class="comment">
           <div class="comment-header">
             <div>${name.value}</div>
-            <div>${date}</div>
+            <div>${getNowDate()}</div>
           </div>
           <div class="comment-body">
             <div class="comment-text">
@@ -113,8 +113,6 @@ el.classList.toggle("-active-like");
 );
 });
     
-    
-  
     function getNowDate() {
     const date = new Date();
       return date.toLocaleTimeString('ru-RU', {
