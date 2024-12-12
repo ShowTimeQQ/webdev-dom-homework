@@ -12,7 +12,7 @@
         <li class="comment">
           <div class="comment-header">
             <div>Глеб Фокин</div>
-            <div>12.02.22 12:18</div>
+            <div>10.02.24 12:18</div>
           </div>
           <div class="comment-body">
             <div class="comment-text">
@@ -29,7 +29,7 @@
         <li class="comment">
           <div class="comment-header">
             <div>Варвара Н.</div>
-            <div>13.02.22 19:22</div>
+            <div>13.02.24 19:44</div>
           </div>
           <div class="comment-body">
             <div class="comment-text">
@@ -64,23 +64,23 @@
       </div>
     </div>
   </body>
-  <script>
+ <script>
     const button = document.getElementById("add");
     const name = document.getElementById("name");
     const list = document.getElementById("list");
     const comment = document.getElementById("comment");
     const date = getNowDate();
 
-    document.querySelectorAll('.like-button').forEach(el => 
+  document.querySelectorAll('.like-button').forEach(el => 
   el.addEventListener('click', () => makeLike(el)) 
 );
 
 function makeLike(el) {
   
-  el.classList.toggle("-active-like");
+el.classList.toggle("-active-like");
   
 }
-  // -active-like
+  
     button.addEventListener('click', function (e) {
     
 
@@ -111,25 +111,26 @@ function makeLike(el) {
   document.querySelectorAll('.like-button').forEach(el => 
   el.addEventListener('click', () => makeLike(el)) 
 );
-
-    });
+});
     
     
   
     function getNowDate() {
-      const date = new Date();
-        return date.toLocaleTimeString('ru-RU', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-         hour: "2-digit",
-         minute: "2-digit"
+    const date = new Date();
+      return date.toLocaleTimeString('ru-RU', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: "2-digit",
+      minute: "2-digit"
 });
     }
     
     function isEmptyField(field) {
       return field.value === "";
+
+
     }
  
-  </script>
+</script>
 </html>
