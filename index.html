@@ -69,50 +69,88 @@
     const name = document.getElementById("name");
     const list = document.getElementById("list");
     const comment = document.getElementById("comment");
-    const date = getNowDate();
+    const date = new Date();
 
-  document.querySelectorAll('.like-button').forEach(el => 
-  el.addEventListener('click', () => makeLike(el)) 
-);
 
-function makeLike(el) {
+    const comments = [
+  {name :"Глеб Фокин", like :1, text: "Это будет первый комментарий на этой странице",date:"10.02.24 12:18", isLike:false},
+  {name :"Варвара Н", like :0, text: " Мне нравится как оформлена эта страница! ❤",date:"13.02.24 19:44", isLike:false},
   
-el.classList.toggle("-active-like");
-  
-}
-  
-    button.addEventListener('click', function (e) {
-    
-
-    if (isEmptyField(name) && isEmptyField(comment)) {
-      
-      return false;
-    }
-    const oldHtml = list.innerHTML;
-    list.innerHTML = oldHtml + `<li class="comment">
+]
+   
+const renderComments = () => {
+const commentsHtml = comments.map((comments, index) => {
+return `<li class="comment">
           <div class="comment-header">
-            <div>${name.value}</div>
-            <div>${getNowDate()}</div>
+            <div>${comments.name}</div>
+            <div>${comments.date}</div>
           </div>
           <div class="comment-body">
             <div class="comment-text">
-              ${comment.value}
+              ${comments.text}
             </div>
           </div>
           <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">0</span>
-              <button class="like-button"></button>
+             <div class="likes">
+              <span class="likes-counter">${comments.like}</span>
+              <button class="like-button ${comments.isLike ? "-active-like":""}" data-index = "${index}"></button>
             </div>
           </div>
-        </li>` ;
-    name.value = "";
-    comment.value = "";
+        </li>`
+}).join("");
+list.innerHTML = commentsHtml;
+name.value = "";
+
+initEventListeners();
+}
+
+renderComments();
+    
+  
+
+
+
+function  initEventListeners ()  {
+
   document.querySelectorAll('.like-button').forEach(el => 
   el.addEventListener('click', () => makeLike(el)) 
+
 );
-});
+add();
+
+}
+ function add () {
+button.addEventListener('click', function (e) {
     
+
+    if (isEmptyField(name) || isEmptyField(comment)) {
+      return false;
+   
+    }
+    comments.push({name: name.value, date: getNowDate(), text:comment.value, like: 0});
+    
+
+    renderComments();
+
+});
+ }
+
+function makeLike(el) {
+  // el.classList.toggle("-active-like");
+  const commentIndex = el.dataset.index
+  console.log(commentIndex);
+
+  const commentObject = comments[commentIndex];
+  if (commentObject.isLike === true) {
+    commentObject.like -= 1;
+  }
+  else {
+    commentObject.like += 1;
+  }
+  commentObject.isLike =!commentObject.isLike;
+  renderComments();
+}
+
     function getNowDate() {
     const date = new Date();
       return date.toLocaleTimeString('ru-RU', {
@@ -129,6 +167,6 @@ el.classList.toggle("-active-like");
 
 
     }
- 
+   
 </script>
 </html>
