@@ -84,13 +84,13 @@ const initClickComment = () => {
       commentElement.addEventListener ("click" , () => {
         
 
-        const nameField = document.getElementById('name');
-        const commentField = document.getElementById('text');
-        const selectedComments = comments[0, 1];
-  
-        name.value = selectedComments.name;
-        comment.value = selectedComments.text;
+      const name = commentElement.dataset.name;
+      const text = commentElement.dataset.text;
+      comment.value = `${name} > ${text}`;
+       
       })
+
+
      
     }
     event.stopPropagation();
@@ -120,6 +120,7 @@ return `<li data-name = "${comments.name}" data-text = "${comments.text}" class=
 list.innerHTML = commentsHtml;
 name.value = "";
 comment.value ="";
+
 
 initEventListeners();
 initClickComment();
@@ -151,7 +152,8 @@ button.addEventListener('click', function (e) {
       return false;
    
     }
-    comments.push({name: name.value, date: getNowDate(), text:comment.value, like: 0});
+    
+    comments.push({name: name.value.replaceAll(">","").replaceAll("<",""), date: getNowDate(), text:comment.value.replaceAll(">","").replaceAll("<",""), like: 0});
     
 
     renderComments();
