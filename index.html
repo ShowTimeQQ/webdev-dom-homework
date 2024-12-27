@@ -78,19 +78,16 @@
 ]
    
 const initClickComment = () => {
-    const commentsElements = document.querySelectorAll('li');
+    const commentsElements = document.querySelectorAll('.comment');
 
     for (const commentElement of commentsElements  ) {
       commentElement.addEventListener ("click" , () => {
         
 
-      const name = commentElement.dataset.name;
-      const text = commentElement.dataset.text;
-      comment.value = `${name} > ${text}`;
-       
-      })
-
-
+        const indexli = commentElement.dataset.li;
+        const currentComment = comments[indexli];
+        comment.value = `${currentComment.name} > ${currentComment.text}`;
+});
      
     }
     event.stopPropagation();
@@ -99,7 +96,7 @@ const initClickComment = () => {
     
 const renderComments = () => {
 const commentsHtml = comments.map((comments, index) => {
-return `<li data-name = "${comments.name}" data-text = "${comments.text}" class="comment">
+return `<li data-li = "${index}" class="comment">
           <div class="comment-header">
             <div>${comments.name}</div>
             <div>${comments.date}</div>
@@ -153,7 +150,7 @@ button.addEventListener('click', function (e) {
    
     }
     
-    comments.push({name: name.value.replaceAll(">","").replaceAll("<",""), date: getNowDate(), text:comment.value.replaceAll(">","").replaceAll("<",""), like: 0});
+    comments.push({name: name.value.replaceAll(">","&#707").replaceAll("<","&#706"), date: getNowDate(), text:comment.value.replaceAll(">","&#707").replaceAll("<","&#706"), like: 0});
     
 
     renderComments();
