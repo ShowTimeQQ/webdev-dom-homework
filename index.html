@@ -26,7 +26,7 @@
             </div>
           </div>
         </li>
-        <li class="comment">
+        <li data class="comment">
           <div class="comment-header">
             <div>Варвара Н.</div>
             <div>13.02.24 19:44</div>
@@ -73,14 +73,30 @@
 
 
     const comments = [
-  {name :"Глеб Фокин", like :1, text: "Это будет первый комментарий на этой странице",date:"10.02.24 12:18", isLike:false},
-  {name :"Варвара Н", like :0, text: " Мне нравится как оформлена эта страница! ❤",date:"13.02.24 19:44", isLike:false},
-  
+  {name :"Глеб Фокин", like :1, text: "Это будет первый комментарий на этой странице",date:"10.02.24 12:18", isLike:false },
+  {name :"Варвара Н", like :0, text: " Мне нравится как оформлена эта страница! ❤",date:"13.02.24 19:44", isLike:false}
 ]
    
+const initClickComment = () => {
+    const commentsElements = document.querySelectorAll('.comment');
+
+    for (const commentElement of commentsElements  ) {
+      commentElement.addEventListener ("click" , () => {
+        
+
+        const indexli = commentElement.dataset.li;
+        const currentComment = comments[indexli];
+        comment.value = `${currentComment.name} > ${currentComment.text}`;
+});
+     
+    }
+    event.stopPropagation();
+  }
+ 
+    
 const renderComments = () => {
 const commentsHtml = comments.map((comments, index) => {
-return `<li class="comment">
+return `<li data-li = "${index}" class="comment">
           <div class="comment-header">
             <div>${comments.name}</div>
             <div>${comments.date}</div>
@@ -100,25 +116,31 @@ return `<li class="comment">
 }).join("");
 list.innerHTML = commentsHtml;
 name.value = "";
+comment.value ="";
+
 
 initEventListeners();
+initClickComment();
 }
 
 renderComments();
     
-  
-
+ 
+ 
 
 
 function  initEventListeners ()  {
 
   document.querySelectorAll('.like-button').forEach(el => 
-  el.addEventListener('click', () => makeLike(el)) 
+  el.addEventListener('click',  () => makeLike(el,)) 
 
+  
 );
 add();
 
 }
+
+
  function add () {
 button.addEventListener('click', function (e) {
     
@@ -127,7 +149,8 @@ button.addEventListener('click', function (e) {
       return false;
    
     }
-    comments.push({name: name.value, date: getNowDate(), text:comment.value, like: 0});
+    
+    comments.push({name: name.value.replaceAll(">","&#707").replaceAll("<","&#706"), date: getNowDate(), text:comment.value.replaceAll(">","&#707").replaceAll("<","&#706"), like: 0});
     
 
     renderComments();
@@ -136,7 +159,6 @@ button.addEventListener('click', function (e) {
  }
 
 function makeLike(el) {
-  // el.classList.toggle("-active-like");
   const commentIndex = el.dataset.index
   console.log(commentIndex);
 
