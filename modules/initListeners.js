@@ -1,8 +1,23 @@
 import {renderComments} from "./renderComments.js";
 import {comments} from "./comments.js";
+import { updateComments } from "./newComments.js";
 
 const button = document.getElementById("add");
 const name = document.getElementById("name");
+
+fetch('https://wedev-api.sky.pro/api/v1/mikhail-ermishin/comments', {
+})
+.then((respons) => {
+return respons.json();
+})
+.then((data) =>{
+
+updateComments(data.comments)
+renderComments()
+
+
+})
+
 
 export const initClickComment = () => {
     const commentsElements = document.querySelectorAll('.comment');
@@ -45,15 +60,26 @@ export const initClickComment = () => {
           return false;
         
         }
+        const newComments = { "text": "Текст коммента", "name": "Глеб Ф." }
+        // {text: name.value.replaceAll(">","&#62").replaceAll("<","&#60"), date: getNowDate(), text:comment.value.replaceAll(">","&#62").replaceAll("<","&#60"), like: 0};
         
-        comments.push({name: name.value.replaceAll(">","&#62").replaceAll("<","&#60"), date: getNowDate(), text:comment.value.replaceAll(">","&#62").replaceAll("<","&#60"), like: 0});
-        
-        
-        renderComments();
-        
-        });
-        }
+        fetch('https://wedev-api.sky.pro/api/v1/mikhail-ermishin/comments' ,{
+        method:"POST",
+        body: JSON.stringify(newComments) ,
 
+        })
+        .then((respons) => {
+          return respons.json()
+
+        })
+        .then((data) =>{
+          updateComments(data.comments)
+          renderComments()
+        })
+      
+        })
+      }
+    
 
      export function  initEventListeners ()  {
 
@@ -82,3 +108,6 @@ export const initClickComment = () => {
               minute: "2-digit"
             });
             }
+
+  
+  

@@ -1,6 +1,7 @@
 import {comments} from "./comments.js";
 import {initEventListeners, initClickComment} from "./initListeners.js"
 
+
 export const renderComments = () => {
 const button = document.getElementById("add");
 const name = document.getElementById("name");
