@@ -72,9 +72,9 @@ export const initClickComment = () => {
           return respons.json()
 
         })
-        .then((data) =>{
+        .then((text,data) =>{
+          updateComments(text.comments)
           updateComments(data.comments)
-        
         })
         renderComments();
         })
