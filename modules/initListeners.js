@@ -60,8 +60,8 @@ export const initClickComment = () => {
           return false;
         
         }
-        const newComments = { "text": "Текст коммента", "name": "Глеб Ф." }
-        // {text: name.value.replaceAll(">","&#62").replaceAll("<","&#60"), date: getNowDate(), text:comment.value.replaceAll(">","&#62").replaceAll("<","&#60"), like: 0};
+        const newComments = { "text": "Текст коммента", "name": "Глеб Ф." } 
+        // {"text": name.value.replaceAll(">","&#62").replaceAll("<","&#60"), date: getNowDate(), text:comment.value.replaceAll(">","&#62").replaceAll("<","&#60"), like: 0};
         
         fetch('https://wedev-api.sky.pro/api/v1/mikhail-ermishin/comments' ,{
         method:"POST",
@@ -74,9 +74,9 @@ export const initClickComment = () => {
         })
         .then((data) =>{
           updateComments(data.comments)
-          renderComments()
+        
         })
-      
+        renderComments();
         })
       }
     
