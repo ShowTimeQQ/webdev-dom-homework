@@ -1,6 +1,6 @@
 export let comments =[];
 
-export const updateComments = newComments => {
+export const updateComments = (newComments) => {
     comments = newComments;
 }
 
