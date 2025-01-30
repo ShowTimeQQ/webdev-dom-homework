@@ -1,5 +1,6 @@
-export let comments = [];
+export let comments =[];
 
 export const updateComments = newComments => {
     comments = newComments;
 }
+
