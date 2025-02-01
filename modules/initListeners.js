@@ -2,20 +2,21 @@ import { renderComments } from './renderComments.js'
 import { comments } from './newComments.js'
 import { sendComment } from './api.js'
 
-const button = document.getElementById('add')
-const name = document.getElementById('name')
+
 
 export const initClickComment = () => {
     const commentsElements = document.querySelectorAll('.comment')
-
+  
     for (const commentElement of commentsElements) {
-        commentElement.addEventListener('click', (event) => {
+    
+        commentElement.addEventListener('click', () => {
             const indexli = commentElement.dataset.li
             const currentComment = comments[indexli]
-            comments.value = `${currentComment.author.name} > ${currentComment.text}`
-            event.stopPropagation()
+            comment.value = `${currentComment.author.name} > ${currentComment.text}`
+           
         })
-    }
+            }
+            event.stopPropagation()
 }
 
 export function makeLike(el) {
@@ -33,19 +34,23 @@ export function makeLike(el) {
 }
 
 export function add() {
-    button.addEventListener('click', function (e) {
-        if (isEmptyField(name) || isEmptyField(comments)) {
+  const buttonEl = document.getElementById("add")
+  const textEl = document.getElementById('comment')
+  const nameEl = document.getElementById('name')
+    buttonEl.addEventListener('click', function (e) {
+        if (isEmptyField(nameEl) || isEmptyField(textEl)) {
             return false
         }
         sendComment()
     })
 }
+add()
+
 
 export function initEventListeners() {
     document
         .querySelectorAll('.like-button')
         .forEach((el) => el.addEventListener('click', () => makeLike(el)))
-    add()
 }
 
 export function isEmptyField(field) {
