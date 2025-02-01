@@ -1,4 +1,4 @@
-import {comments} from "./comments.js";
+import {comments} from "./newComments.js";
 import {initEventListeners, initClickComment} from "./initListeners.js"
 
 
@@ -11,7 +11,7 @@ const date = new Date();
     const commentsHtml = comments.map((comments, index) => {
     return `<li data-li = "${index}" class="comment">
           <div class="comment-header">
-            <div>${comments.name}</div>
+            <div>${comments.author.name}</div>
             <div>${comments.date}</div>
           </div>
           <div class="comment-body">
@@ -21,8 +21,8 @@ const date = new Date();
           </div>
           <div class="comment-footer">
              <div class="likes">
-              <span class="likes-counter">${comments.like}</span>
-              <button class="like-button ${comments.isLike ? "-active-like":""}" data-index = "${index}"></button>
+              <span class="likes-counter">${comments.likes}</span>
+              <button class="like-button ${comments.isLiked ? "-active-like":""}" data-index = "${index}"></button>
             </div>
           </div>
         </li>`
