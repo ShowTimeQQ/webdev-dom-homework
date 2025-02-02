@@ -1,84 +1,58 @@
-import {renderComments} from "./renderComments.js";
-import {comments} from "./comments.js";
+import { renderComments } from './renderComments.js'
+import { comments } from './newComments.js'
+import { sendComment } from './api.js'
 
-const button = document.getElementById("add");
-const name = document.getElementById("name");
+
 
 export const initClickComment = () => {
-    const commentsElements = document.querySelectorAll('.comment');
-
-    for (const commentElement of commentsElements  ) {
-      commentElement.addEventListener ("click" , (event) => {
-        
-
-        const indexli = commentElement.dataset.li;
-        const currentComment = comments[indexli];
-        comment.value = `${currentComment.name} > ${currentComment.text}`;
-       
-});
-
-    }
-    event.stopPropagation();
-  }
-
-   export function makeLike(el) {
-      const commentIndex = el.dataset.index
-      console.log(commentIndex);
-      
-      const commentObject = comments[commentIndex];
-      if (commentObject.isLike === true) {
-      commentObject.like -= 1;
-      }
-      else {
-      commentObject.like += 1;
-      }
-      commentObject.isLike =!commentObject.isLike;
-      renderComments();
-      }
-
+    const commentsElements = document.querySelectorAll('.comment')
+  
+    for (const commentElement of commentsElements) {
     
-      export function add () {
-        button.addEventListener('click', function (e) {
-        
-        
-        if (isEmptyField(name) || isEmptyField(comment)) {
-          return false;
-        
-        }
-        
-        comments.push({name: name.value.replaceAll(">","&#62").replaceAll("<","&#60"), date: getNowDate(), text:comment.value.replaceAll(">","&#62").replaceAll("<","&#60"), like: 0});
-        
-        
-        renderComments();
-        
-        });
-        }
-
-
-     export function  initEventListeners ()  {
-
-        document.querySelectorAll('.like-button').forEach(el => 
-        el.addEventListener('click',  () => makeLike(el,)) 
-        
-        
-        );
-        add();
-        
-        }
-
-        export function isEmptyField(field) {
-            return field.value === "";
-          
-          
-          }
-
-          export function getNowDate() {
-            const date = new Date();
-              return date.toLocaleTimeString('ru-RU', {
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-              hour: "2-digit",
-              minute: "2-digit"
-            });
+        commentElement.addEventListener('click', () => {
+            const indexli = commentElement.dataset.li
+            const currentComment = comments[indexli]
+            comment.value = `${currentComment.author.name} > ${currentComment.text}`
+           
+        })
             }
+            event.stopPropagation()
+}
+
+export function makeLike(el) {
+    const commentIndex = el.dataset.index
+    console.log(commentIndex)
+
+    const commentObject = comments[commentIndex]
+    if (commentObject.isLiked === true) {
+        commentObject.likes -= 1
+    } else {
+        commentObject.likes += 1
+    }
+    commentObject.isLiked = !commentObject.isLiked
+    renderComments()
+}
+
+export function add() {
+  const buttonEl = document.getElementById("add")
+  const textEl = document.getElementById('comment')
+  const nameEl = document.getElementById('name')
+    buttonEl.addEventListener('click', function (e) {
+        if (isEmptyField(nameEl) || isEmptyField(textEl)) {
+            return false
+        }
+        sendComment()
+    })
+}
+add()
+
+
+export function initEventListeners() {
+    document
+        .querySelectorAll('.like-button')
+        .forEach((el) => el.addEventListener('click', () => makeLike(el)))
+}
+
+export function isEmptyField(field) {
+    return field.value === ''
+}
