@@ -10,5 +10,5 @@ export function getNowDate() {
         minute: '2-digit',
     })
 }
-
+document.querySelector('.comments').innerHTML = 'Подождите, идет загрузка ...'
 getComments()

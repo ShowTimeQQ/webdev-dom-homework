@@ -1,7 +1,12 @@
 import { renderComments } from './renderComments.js'
-import { comments } from './newComments.js'
-import { sendComment } from './api.js'
+import { comments, updateComments } from './newComments.js'
+import {sendComment} from './api.js'
+
+const commentsEl = document.getElementById('comment')
+const name = document.getElementById('name')
 const comment = document.getElementById('comment')
+
+
 export const initClickComment = () => {
     const commentsElements = document.querySelectorAll('.comment')
 
@@ -19,7 +24,6 @@ export const initClickComment = () => {
 export function makeLike(el) {
     const commentIndex = el.dataset.index
     console.log(commentIndex)
-event.stopPropagation()
     const commentObject = comments[commentIndex]
     if (commentObject.isLiked === true) {
         commentObject.likes -= 1
@@ -30,6 +34,8 @@ event.stopPropagation()
     renderComments()
 }
 
+
+
 export function add() {
     const buttonEl = document.getElementById('add')
     const textEl = document.getElementById('comment')
@@ -38,9 +44,21 @@ export function add() {
         if (isEmptyField(nameEl) || isEmptyField(textEl)) {
             return false
         }
-        // document.querySelector('.form-loading').style.display = 'block'
-        // document.querySelector(".add-form").style.display = 'none'
-        sendComment()
+    document.querySelector('.form-loading').style.display = 'block'
+    document.querySelector(".add-form").style.display = 'none'
+
+
+       sendComment(name.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),commentsEl.value.replaceAll('>', '&#62').replaceAll('<', '&#60'))
+       .then ((data) => {
+         document.querySelector('.form-loading').style.display = 'none'
+                document.querySelector(".add-form").style.display = 'flex'
+        updateComments(data)
+        name.value= ''
+        commentsEl.value= ''
+        renderComments()
+       })
+
+      
     })
 }
 add()
@@ -49,8 +67,9 @@ export function initEventListeners() {
   
     document
     .querySelectorAll('.like-button')
- .forEach((el) => el.addEventListener('click', () => makeLike(el)))
-        
+ .forEach((el) => el.addEventListener('click', (event) =>{ makeLike(el)
+        event.stopPropagation()
+}))
 }
 
 export function isEmptyField(field) {
