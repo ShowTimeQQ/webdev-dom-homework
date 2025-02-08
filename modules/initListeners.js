@@ -1,5 +1,5 @@
 import { renderComments } from './renderComments.js'
-import { comments, updateComments } from './newComments.js'
+import { comments } from './newComments.js'
 import {sendComment} from './api.js'
 
 const commentsEl = document.getElementById('comment')
@@ -49,13 +49,11 @@ export function add() {
 
 
        sendComment(name.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),commentsEl.value.replaceAll('>', '&#62').replaceAll('<', '&#60'))
-       .then ((data) => {
+       .then (() => {
          document.querySelector('.form-loading').style.display = 'none'
                 document.querySelector(".add-form").style.display = 'flex'
-        updateComments(data)
         name.value= ''
         commentsEl.value= ''
-        renderComments()
        })
 
       

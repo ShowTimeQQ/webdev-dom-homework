@@ -26,7 +26,7 @@ export function getComments() {
 
 
      
-export function sendComment(text,name) {
+export function sendComment(name,text) {
       return fetch(host +'/comments', {
         method: 'POST',
         body: JSON.stringify({
