@@ -1,6 +1,7 @@
 import { renderComments } from './renderComments.js'
 import { comments } from './newComments.js'
 import {sendComment} from './api.js'
+import { getComments } from './api.js'
 
 const commentsEl = document.getElementById('comment')
 const name = document.getElementById('name')
@@ -54,7 +55,9 @@ export function add() {
                 document.querySelector(".add-form").style.display = 'flex'
         name.value= ''
         commentsEl.value= ''
-       })
+       }).then(() => {
+            return getComments()
+            })
 
       
     })

@@ -33,11 +33,7 @@ export function sendComment(name,text) {
             text, 
             name,
         }),
-    
-     }) .then(() => {
-        return getComments()
-        })
-
+     })
     }
 
        
