@@ -1,42 +1,41 @@
-import {renderComments} from"./renderComments.js";
-import { updateComments } from "./newComments.js";
+import { renderComments } from './renderComments.js'
+import { updateComments } from './newComments.js'
+
+
+
+const host = 'https://wedev-api.sky.pro/api/v1/mikhail-ermishin'
+
+
+   
+
+
+
 
 export function getComments() {
-    fetch('https://wedev-api.sky.pro/api/v1/mikhail-ermishin/comments', {
-    })
-    .then((respons) => {
-    return respons.json();
-    })
-    .then((data) =>{
-    updateComments(data.comments)
-    renderComments()
+    fetch(host + '/comments')
     
-    })
+        .then((respons) => {
+            return respons.json()
+        })
+        .then((data) => {
+            updateComments(data.comments)
+            renderComments()
+        })
+}
+  
+
+
+     
+export function sendComment(name,text) {
+      return fetch(host +'/comments', {
+        method: 'POST',
+        body: JSON.stringify({
+            text, 
+            name,
+        }),
+     })
     }
 
+       
 
-    export function sendComment () {
-        const commentsEl = document.getElementById("comment")
-        const name = document.getElementById("name");
-        
-        
-        
-        const newComments = 
-        { "name":name.value.replaceAll(">","&#62").replaceAll("<","&#60"),
-           "text":commentsEl.value.replaceAll(">","&#62").replaceAll("<","&#60") };
-        
-        
-         fetch('https://wedev-api.sky.pro/api/v1/mikhail-ermishin/comments' ,{
-                method:"POST",
-                body: JSON.stringify(newComments) ,
-        
-                })
-                .then((respons) => {
-                  return respons.json()
-        
-                })
-                .then((text) =>{
-                console.log(text)
-                getComments()
-                })
-        }
+
