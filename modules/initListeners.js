@@ -58,8 +58,30 @@ export function add() {
        }).then(() => {
             return getComments()
             })
+                .catch ((error) => {
+                document.querySelector('.form-loading').style.display = 'none'
+                document.querySelector(".add-form").style.display = 'flex'
 
-      
+                if (error.message === 'Failed to fetch') {
+                    alert('нет интернета , проверьте соеденение')
+                }
+
+                if (error.message === 'Ошибка сервера') {
+                    alert(error.message)
+                }
+
+
+                if (error.message === 'Неверный запрос') {
+                alert('Имя и комментарий должны быть не короче 3х символов')
+                name.classList.add("-error")
+                commentsEl.classList.add("-error")
+                setTimeout (() => {
+                    name.classList.remove("-error")
+                    commentsEl.classList.remove("-error")
+                }, 2000)
+                }
+
+            })
     })
 }
 add()
