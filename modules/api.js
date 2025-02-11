@@ -3,8 +3,8 @@ const host = 'https://wedev-api.sky.pro/api/v1/mikhail-ermishin'
 export function getComments() {
    return  fetch(host + '/comments')
     
-        .then((respons) => {
-            return respons.json()
+        .then((response) => {
+            return response.json()
         })
         
 }
@@ -20,14 +20,14 @@ export function sendComment(name,text) {
             name,
             forceError: true,
         }),
-     }).then((respons) => {
-        if (respons.status === 500) {
+     }).then((response) => {
+        if (response.status === 500) {
             throw new Error("Ошибка сервера")
         }
-        if (respons.status === 400) {
+        if (response.status === 400) {
             throw new Error("Неверный запрос")
      }
-     if (respons.status === 201) {
+     if (response.status === 201) {
       return response.json()
  }
     })
