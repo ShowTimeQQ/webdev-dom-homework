@@ -1,12 +1,11 @@
 import { renderComments } from './renderComments.js'
-import { comments } from './newComments.js'
-import {sendComment} from './api.js'
+import { comments, updateComments } from './newComments.js'
+import { sendComment } from './api.js'
 import { getComments } from './api.js'
 
 const commentsEl = document.getElementById('comment')
 const name = document.getElementById('name')
 const comment = document.getElementById('comment')
-
 
 export const initClickComment = () => {
     const commentsElements = document.querySelectorAll('.comment')
@@ -16,10 +15,8 @@ export const initClickComment = () => {
             const indexli = commentElement.dataset.li
             const currentComment = comments[indexli]
             comment.value = `${currentComment.author.name} > ${currentComment.text}`
-          
         })
     }
-  
 }
 
 export function makeLike(el) {
@@ -35,8 +32,6 @@ export function makeLike(el) {
     renderComments()
 }
 
-
-
 export function add() {
     const buttonEl = document.getElementById('add')
     const textEl = document.getElementById('comment')
@@ -45,54 +40,59 @@ export function add() {
         if (isEmptyField(nameEl) || isEmptyField(textEl)) {
             return false
         }
-    document.querySelector('.form-loading').style.display = 'block'
-    document.querySelector(".add-form").style.display = 'none'
+        document.querySelector('.form-loading').style.display = 'block'
+        document.querySelector('.add-form').style.display = 'none'
 
-
-       sendComment(name.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),commentsEl.value.replaceAll('>', '&#62').replaceAll('<', '&#60'))
-       .then (() => {
-         document.querySelector('.form-loading').style.display = 'none'
-                document.querySelector(".add-form").style.display = 'flex'
-        name.value= ''
-        commentsEl.value= ''
-       }).then(() => {
-            return getComments()
-            })
-                .catch ((error) => {
+        sendComment(
+            name.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),
+            commentsEl.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),
+        )
+            .then(() => {
                 document.querySelector('.form-loading').style.display = 'none'
-                document.querySelector(".add-form").style.display = 'flex'
+                document.querySelector('.add-form').style.display = 'flex'
+                name.value = ''
+                commentsEl.value = ''
+            })
+            .then(() => {
+                return getComments()
+            })
+            .then((data) => {
+                updateComments(data.comments)
+                renderComments()
+            })
+            .catch((error) => {
+                document.querySelector('.form-loading').style.display = 'none'
+                document.querySelector('.add-form').style.display = 'flex'
 
                 if (error.message === 'Failed to fetch') {
                     alert('нет интернета , проверьте соеденение')
                 }
 
-                if (error.message === 'Ошибка сервера') {
+                if (error.message === 'Сервер упал') {
                     alert(error.message)
                 }
 
-
                 if (error.message === 'Неверный запрос') {
-                alert('Имя и комментарий должны быть не короче 3х символов')
-                name.classList.add("-error")
-                commentsEl.classList.add("-error")
-                setTimeout (() => {
-                    name.classList.remove("-error")
-                    commentsEl.classList.remove("-error")
-                }, 2000)
+                    alert('Имя и комментарий должны быть не короче 3х символов')
+                    name.classList.add('-error')
+                    commentsEl.classList.add('-error')
+                    setTimeout(() => {
+                        name.classList.remove('-error')
+                        commentsEl.classList.remove('-error')
+                    }, 2000)
                 }
-
             })
     })
 }
 add()
 
 export function initEventListeners() {
-  
-    document
-    .querySelectorAll('.like-button')
- .forEach((el) => el.addEventListener('click', (event) =>{ makeLike(el)
-        event.stopPropagation()
-}))
+    document.querySelectorAll('.like-button').forEach((el) =>
+        el.addEventListener('click', (event) => {
+            makeLike(el)
+            event.stopPropagation()
+        }),
+    )
 }
 
 export function isEmptyField(field) {

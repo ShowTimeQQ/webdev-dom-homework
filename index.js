@@ -1,4 +1,5 @@
 import { getComments } from './modules/api.js'
+import { initEventListeners } from './modules/initListeners.js'
 import { updateComments } from './modules/newComments.js'
 import { renderComments } from './modules/renderComments.js'
 
@@ -18,3 +19,4 @@ getComments().then((data) => {
     updateComments(data.comments)
     renderComments()
 })
+initEventListeners(renderComments)
