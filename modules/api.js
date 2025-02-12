@@ -1,41 +1,28 @@
-import { renderComments } from './renderComments.js'
-import { updateComments } from './newComments.js'
-
-
-
 const host = 'https://wedev-api.sky.pro/api/v1/mikhail-ermishin'
 
-
-   
-
-
-
-
 export function getComments() {
-    fetch(host + '/comments')
-    
-        .then((respons) => {
-            return respons.json()
-        })
-        .then((data) => {
-            updateComments(data.comments)
-            renderComments()
-        })
+    return fetch(host + '/comments').then((response) => {
+        return response.json()
+    })
 }
-  
 
-
-     
-export function sendComment(name,text) {
-      return fetch(host +'/comments', {
+export function sendComment(name, text) {
+    return fetch(host + '/comments', {
         method: 'POST',
         body: JSON.stringify({
-            text, 
+            text,
             name,
+            forceError: true,
         }),
-     })
-    }
-
-       
-
-
+    }).then((response) => {
+        if (response.status === 500) {
+            throw new Error('Сервер упал')
+        }
+        if (response.status === 400) {
+            throw new Error('Неверный запрос')
+        }
+        if (response.status === 201) {
+            return response.json()
+        }
+    })
+}
