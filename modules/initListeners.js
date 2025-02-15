@@ -84,7 +84,6 @@ export function add() {
             })
     })
 }
-add()
 
 export function initEventListeners() {
     document.querySelectorAll('.like-button').forEach((el) =>

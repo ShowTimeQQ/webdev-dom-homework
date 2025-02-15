@@ -1,14 +1,20 @@
-const host = 'https://wedev-api.sky.pro/api/v1/mikhail-ermishin'
+const host = 'https://wedev-api.sky.pro/api/v2/:mikhail-ermishin'
+const autHost = ' https://wedev-api.sky.pro/api/user'
 
 export function getComments() {
     return fetch(host + '/comments').then((response) => {
         return response.json()
     })
 }
+let token = ''
+export const setToken = (newToken) => {
+    token = newToken
+}
 
 export function sendComment(name, text) {
     return fetch(host + '/comments', {
         method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
         body: JSON.stringify({
             text,
             name,
@@ -24,5 +30,19 @@ export function sendComment(name, text) {
         if (response.status === 201) {
             return response.json()
         }
+    })
+}
+
+export const login = (login, password) => {
+    return fetch(autHost + '/login', {
+        method: 'POST',
+        body: JSON.stringify({ login: login, password: password }),
+    })
+}
+
+export const registration = (name, login, password) => {
+    return fetch(autHost, {
+        method: 'POST',
+        body: JSON.stringify({ name: name, login: login, password: password }),
     })
 }
