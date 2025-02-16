@@ -6,11 +6,14 @@ export function getComments() {
         return response.json()
     })
 }
-let token = ''
+export let token = ''
 export const setToken = (newToken) => {
     token = newToken
 }
-
+export let name = ''
+export const setName = (newName) => {
+    name = newName
+}
 export function sendComment(name, text) {
     return fetch(host + '/comments', {
         method: 'POST',

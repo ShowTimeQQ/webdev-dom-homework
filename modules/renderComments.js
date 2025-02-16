@@ -1,7 +1,8 @@
 import { comments } from './newComments.js'
-// import { initEventListeners, initClickComment } from './initListeners.js'
+import { initEventListeners, initClickComment } from './initListeners.js'
 import { renderLogin } from './renderLogin.js'
-
+import { add } from './initListeners.js'
+import { token } from './api.js'
 export const renderComments = () => {
     const container = document.querySelector('.container')
     // const name = document.getElementById('name')
@@ -42,7 +43,7 @@ export const renderComments = () => {
                     placeholder="Введите ваше имя"
                 />
                 <textarea
-                    id="comment"
+                    id="formtext"
                     type="textarea"
                     class="add-form-text"
                     placeholder="Введите ваш коментарий"
@@ -55,19 +56,23 @@ export const renderComments = () => {
             <div class="form-loading" style="display: none; margin-top: 20px">
                 Комментарий добавляется...
             </div> `
+
     const linkToLoginText = `<p>чтобы отправить комментарий , <span class= "link-login">войдите</span></p>`
 
     const baseHtml = `
     <ul class="comments">${commentsHtml}</ul>
-             ${linkToLoginText}
+             ${token ? addCommentsHtml : linkToLoginText}
              `
 
     container.innerHTML = baseHtml
 
-    // initEventListeners()
-    // initClickComment()
-    // add()
-    document.querySelector('.link-login').addEventListener('click', () => {
-        renderLogin()
-    })
+    if (token) {
+        initEventListeners(renderComments)
+        initClickComment()
+        add(renderComments)
+    } else {
+        document.querySelector('.link-login').addEventListener('click', () => {
+            renderLogin()
+        })
+    }
 }

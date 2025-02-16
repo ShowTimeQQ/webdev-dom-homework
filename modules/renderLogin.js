@@ -1,19 +1,21 @@
+import { login, setToken, setName, getComments } from './api.js'
+import { renderComments } from './renderComments.js'
 export const renderLogin = () => {
     const container = document.querySelector('.container')
     const loginHtml = `
      <section class = "add-form">
-     <h1>Форма входа</h1>
+     <h1 class="text-form-enter">Форма входа</h1>
      <input
      type="text"
      class="add-form-name"
-     palceholder="Введите логин"
+     placeholder="Введите логин"
      id="login"
      required
      />
      <input
      type="text"
      class ="add-form-name"
-     palceholder="Введите пароль"
+     placeholder="Введите пароль"
      id="password"
      required
      ></input>
@@ -26,5 +28,22 @@ export const renderLogin = () => {
      </fieldset>
      </section>
      `
-    container.innerHtml = loginHtml
+    container.innerHTML = loginHtml
+
+    const loginEl = document.querySelector('#login')
+    const passwordEl = document.querySelector('#password')
+    const submitButtonEl = document.querySelector('.button-main')
+
+    submitButtonEl.addEventListener('click', () => {
+        login(loginEl.value, passwordEl.value)
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                setToken(data.user.token)
+                setName(data.user.name)
+                getComments()
+                renderComments()
+            })
+    })
 }

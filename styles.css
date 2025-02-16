@@ -108,12 +108,34 @@ body {
     border-radius: 8px;
     border: none;
 }
+.add-form-registry {
+    display: flex;
+    flex-direction: column;
+    border: #7334ea;
+    padding-top: 15px;
+}
+.add-form-button-main {
+    padding-top: 10px;
+    border-radius: 50px;
+    background: #bcec30;
+    padding-bottom: 10px;
+    font-size: 18px;
+}
+.text-form-enter {
+    padding-left: 15px;
+}
 
 .add-form-name {
     width: 300px;
-    padding: 11px 22px;
+    padding: 10px 22px;
+    margin-bottom: 20px;
+    width: 480px;
+    margin-left: 15px;
 }
-
+.add-form-button-link {
+    padding-top: 15px;
+    padding-left: 180px;
+}
 .add-form-text {
     margin-top: 12px;
     padding: 22px;

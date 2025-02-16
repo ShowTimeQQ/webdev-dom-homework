@@ -3,7 +3,7 @@ import { comments, updateComments } from './newComments.js'
 import { sendComment } from './api.js'
 import { getComments } from './api.js'
 
-const commentsEl = document.getElementById('comment')
+const commentsEl = document.getElementById('formtext')
 const name = document.getElementById('name')
 const comment = document.getElementById('comment')
 
@@ -34,7 +34,7 @@ export function makeLike(el) {
 
 export function add() {
     const buttonEl = document.getElementById('add')
-    const textEl = document.getElementById('comment')
+    const textEl = document.getElementById('formtext')
     const nameEl = document.getElementById('name')
     buttonEl.addEventListener('click', function () {
         if (isEmptyField(nameEl) || isEmptyField(textEl)) {
