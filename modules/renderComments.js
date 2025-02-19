@@ -2,7 +2,7 @@ import { comments } from './newComments.js'
 import { initEventListeners, initClickComment } from './initListeners.js'
 import { renderLogin } from './renderLogin.js'
 import { add } from './initListeners.js'
-import { token } from './api.js'
+import { name, token } from './api.js'
 export const renderComments = () => {
     const container = document.querySelector('.container')
     // const name = document.getElementById('name')
@@ -41,6 +41,9 @@ export const renderComments = () => {
                     type="text"
                     class="add-form-name"
                     placeholder="Введите ваше имя"
+                   readonly
+                   value="${name}"
+
                 />
                 <textarea
                     id="formtext"

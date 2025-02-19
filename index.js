@@ -13,10 +13,16 @@ export function getNowDate() {
         minute: '2-digit',
     })
 }
-// document.querySelector('.comments').innerHTML = 'Подождите, идет загрузка ...'
+export const renderFistComments = (isFirstLoading) => {
+    if (isFirstLoading) {
+        document.querySelector('.container').innerHTML =
+            '<p>Подождите, идет загрузка комментариев...</p>'
+    }
 
-getComments().then((data) => {
-    updateComments(data.comments)
-    renderComments()
-})
-initEventListeners(renderComments)
+    getComments().then((data) => {
+        updateComments(data.comments)
+        renderComments()
+    })
+    initEventListeners(renderComments)
+}
+renderFistComments(true)

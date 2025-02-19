@@ -3,13 +3,9 @@ import { comments, updateComments } from './newComments.js'
 import { sendComment } from './api.js'
 import { getComments } from './api.js'
 
-const commentsEl = document.getElementById('formtext')
-const name = document.getElementById('name')
-const comment = document.getElementById('comment')
-
 export const initClickComment = () => {
     const commentsElements = document.querySelectorAll('.comment')
-
+    const comment = document.querySelectorAll('.comment-text')
     for (const commentElement of commentsElements) {
         commentElement.addEventListener('click', () => {
             const indexli = commentElement.dataset.li
@@ -36,6 +32,7 @@ export function add() {
     const buttonEl = document.getElementById('add')
     const textEl = document.getElementById('formtext')
     const nameEl = document.getElementById('name')
+    const commentsEl = document.getElementById('formtext')
     buttonEl.addEventListener('click', function () {
         if (isEmptyField(nameEl) || isEmptyField(textEl)) {
             return false
@@ -44,13 +41,13 @@ export function add() {
         document.querySelector('.add-form').style.display = 'none'
 
         sendComment(
-            name.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),
+            nameEl.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),
             commentsEl.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),
         )
             .then(() => {
                 document.querySelector('.form-loading').style.display = 'none'
                 document.querySelector('.add-form').style.display = 'flex'
-                name.value = ''
+                nameEl.value = ''
                 commentsEl.value = ''
             })
             .then(() => {

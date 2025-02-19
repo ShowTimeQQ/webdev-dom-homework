@@ -1,12 +1,19 @@
-import { login, setToken, setName, getComments } from './api.js'
+import { setToken, setName, getComments } from './api.js'
 import { renderComments } from './renderComments.js'
-import { renderRegistration } from './renderRegistration.js'
-export const renderLogin = () => {
+import { registration } from './api.js'
+import { renderLogin } from './renderLogin.js'
+export const renderRegistration = () => {
     const container = document.querySelector('.container')
     const loginHtml = `
      <section class = "add-form">
-     <h1 class="text-form-enter">Форма входа</h1>
+     <h1 class="text-form-enter">Форма регистрации</h1>
      <input
+     type="text"
+     class="add-form-name"
+     placeholder="Введите имя"
+     id="name"
+     required
+     /> <input
      type="text"
      class="add-form-name"
      placeholder="Введите логин"
@@ -22,25 +29,26 @@ export const renderLogin = () => {
      ></input>
      <fieldset class="add-form-registry">
      <button class="add-form-button-main button-main" type="submit">
-     Войдите</button>
-     <u class="add-form-button-link registry" >
-     Зарегистрироваться 
+    Зарегистрируйтесь</button>
+     <u class="add-form-button-link entry" >
+     Войти
      </u>
      </fieldset>
      </section>
      `
     container.innerHTML = loginHtml
 
-    document.querySelector('.registry').addEventListener('click', () => {
-        renderRegistration()
+    document.querySelector('.entry').addEventListener('click', () => {
+        renderLogin()
     })
 
     const loginEl = document.querySelector('#login')
     const passwordEl = document.querySelector('#password')
     const submitButtonEl = document.querySelector('.button-main')
+    const nameEl = document.querySelector('#name')
 
     submitButtonEl.addEventListener('click', () => {
-        login(loginEl.value, passwordEl.value)
+        registration(nameEl.value, loginEl.value, passwordEl.value)
             .then((response) => {
                 return response.json()
             })
