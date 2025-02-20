@@ -1,5 +1,4 @@
-import { login, setToken, setName, getComments } from './api.js'
-import { renderComments } from './renderComments.js'
+import { login, setToken, setName } from './api.js'
 import { renderRegistration } from './renderRegistration.js'
 export const renderLogin = () => {
     const container = document.querySelector('.container')
@@ -14,7 +13,7 @@ export const renderLogin = () => {
      required
      />
      <input
-     type="password"
+     type="text"
      class ="add-form-name"
      placeholder="Введите пароль"
      id="password"
@@ -47,8 +46,11 @@ export const renderLogin = () => {
             .then((data) => {
                 setToken(data.user.token)
                 setName(data.user.name)
-                getComments()
-                renderComments()
+            })
+            .catch((error) => {
+                if (error.message === 'Введены неккоректные данные') {
+                    alert('Проверьте правильность набора данных!!!')
+                }
             })
     })
 }

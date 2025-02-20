@@ -5,7 +5,7 @@ import { getComments } from './api.js'
 
 export const initClickComment = () => {
     const commentsElements = document.querySelectorAll('.comment')
-    const comment = document.querySelectorAll('.comment-text')
+    const comment = document.querySelector('.add-form-text')
     for (const commentElement of commentsElements) {
         commentElement.addEventListener('click', () => {
             const indexli = commentElement.dataset.li
@@ -32,7 +32,7 @@ export function add() {
     const buttonEl = document.getElementById('add')
     const textEl = document.getElementById('formtext')
     const nameEl = document.getElementById('name')
-    const commentsEl = document.getElementById('formtext')
+
     buttonEl.addEventListener('click', function () {
         if (isEmptyField(nameEl) || isEmptyField(textEl)) {
             return false
@@ -42,13 +42,13 @@ export function add() {
 
         sendComment(
             nameEl.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),
-            commentsEl.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),
+            textEl.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),
         )
             .then(() => {
                 document.querySelector('.form-loading').style.display = 'none'
                 document.querySelector('.add-form').style.display = 'flex'
                 nameEl.value = ''
-                commentsEl.value = ''
+                textEl.value = ''
             })
             .then(() => {
                 return getComments()
@@ -71,11 +71,11 @@ export function add() {
 
                 if (error.message === 'Неверный запрос') {
                     alert('Имя и комментарий должны быть не короче 3х символов')
-                    name.classList.add('-error')
-                    commentsEl.classList.add('-error')
+                    nameEl.classList.add('-error')
+                    textEl.classList.add('-error')
                     setTimeout(() => {
-                        name.classList.remove('-error')
-                        commentsEl.classList.remove('-error')
+                        nameEl.classList.remove('-error')
+                        textEl.classList.remove('-error')
                     }, 2000)
                 }
             })

@@ -1,5 +1,4 @@
-import { setToken, setName, getComments } from './api.js'
-import { renderComments } from './renderComments.js'
+import { setToken, setName } from './api.js'
 import { registration } from './api.js'
 import { renderLogin } from './renderLogin.js'
 export const renderRegistration = () => {
@@ -55,8 +54,6 @@ export const renderRegistration = () => {
             .then((data) => {
                 setToken(data.user.token)
                 setName(data.user.name)
-                getComments()
-                renderComments()
             })
     })
 }

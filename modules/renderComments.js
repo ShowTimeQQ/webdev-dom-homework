@@ -5,9 +5,6 @@ import { add } from './initListeners.js'
 import { name, token } from './api.js'
 export const renderComments = () => {
     const container = document.querySelector('.container')
-    // const name = document.getElementById('name')
-    // const comment = document.getElementById('comment')
-    // const list = document.getElementById('list')
 
     const commentsHtml = comments
         .map((comments, index) => {
@@ -31,8 +28,6 @@ export const renderComments = () => {
         })
         .join('')
 
-    // name.value = ''
-    // comment.value = ''
     const addCommentsHtml = `
       
             <div class="add-form" id="form">
