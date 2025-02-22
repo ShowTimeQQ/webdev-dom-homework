@@ -134,7 +134,11 @@ body {
 }
 .add-form-button-link {
     padding-top: 15px;
-    padding-left: 180px;
+    padding-left: 200px;
+}
+.add-form-button-Enter {
+    padding-top: 15px;
+    padding-left: 245px;
 }
 .add-form-text {
     margin-top: 12px;

@@ -41,13 +41,11 @@ export const renderLogin = () => {
     const submitButtonEl = document.querySelector('.button-main')
 
     submitButtonEl.addEventListener('click', () => {
-        console.log('click')
         if (isEmptyFieldLogin(loginEl) || isEmptyFieldLogin(passwordEl)) {
             return false
         }
         login(loginEl.value, passwordEl.value)
             .then((data) => {
-                console.log('data', data)
                 setToken(data.user.token)
                 setName(data.user.name)
                 renderComments()

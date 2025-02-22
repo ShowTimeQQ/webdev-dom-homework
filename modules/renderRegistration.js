@@ -1,7 +1,9 @@
 import { setToken, setName } from './api.js'
 import { registration } from './api.js'
-import { renderFistComments } from '../index.js'
 import { renderLogin } from './renderLogin.js'
+import { isEmptyFieldRegistration } from './initListeners.js'
+import { renderComments } from './renderComments.js'
+import { renderFistComments } from '../index.js'
 export const renderRegistration = () => {
     const container = document.querySelector('.container')
     const loginHtml = `
@@ -30,7 +32,7 @@ export const renderRegistration = () => {
      <fieldset class="add-form-registry">
      <button class="add-form-button-main button-main" type="submit">
     Зарегистрируйтесь</button>
-     <u class="add-form-button-link entry" >
+     <u class="add-form-button-Enter entry" >
      Войти
      </u>
      </fieldset>
@@ -48,14 +50,23 @@ export const renderRegistration = () => {
     const nameEl = document.querySelector('#name')
 
     submitButtonEl.addEventListener('click', () => {
+        if (
+            isEmptyFieldRegistration(loginEl) ||
+            isEmptyFieldRegistration(passwordEl) ||
+            isEmptyFieldRegistration(nameEl)
+        ) {
+            return false
+        }
         registration(nameEl.value, loginEl.value, passwordEl.value)
-            .then((response) => {
-                return response.json()
-            })
             .then((data) => {
                 setToken(data.user.token)
                 setName(data.user.name)
                 renderFistComments()
+            })
+            .catch((error) => {
+                if (error.message === 'Введены неккоректные данные...') {
+                    alert(error.message)
+                }
             })
     })
 }

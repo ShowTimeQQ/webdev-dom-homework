@@ -98,3 +98,7 @@ export function isEmptyField(field) {
 export function isEmptyFieldLogin(field) {
     return field.value === ''
 }
+
+export function isEmptyFieldRegistration(field) {
+    return field.value === ''
+}
