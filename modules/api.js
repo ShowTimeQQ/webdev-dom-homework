@@ -1,3 +1,5 @@
+import { renderFistComments } from '../index.js'
+
 const host = 'https://wedev-api.sky.pro/api/v2/:mikhail-ermishin'
 const autHost = ' https://wedev-api.sky.pro/api/user'
 
@@ -43,16 +45,16 @@ export const login = (login, password) => {
         body: JSON.stringify({ login: login, password: password }),
     }).then((response) => {
         if (response.status === 400) {
-            throw new Error('Введены неккоректные данные')
+            throw new Error('Введены неккоректные данные!!!')
         }
 
         if (response.status === 201) {
-            return response.json()
+            renderFistComments()
         }
     })
 }
 export const registration = (name, login, password) => {
-    return fetch(autHost, +'/login', {
+    return fetch(autHost, {
         method: 'POST',
         body: JSON.stringify({ name: name, login: login, password: password }),
     })

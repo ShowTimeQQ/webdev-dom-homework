@@ -94,3 +94,7 @@ export function initEventListeners() {
 export function isEmptyField(field) {
     return field.value === ''
 }
+
+export function isEmptyFieldLogin(field) {
+    return field.value === ''
+}

@@ -1,5 +1,7 @@
 import { login, setToken, setName } from './api.js'
 import { renderRegistration } from './renderRegistration.js'
+import { isEmptyFieldLogin } from './initListeners.js'
+import { renderComments } from './renderComments.js'
 export const renderLogin = () => {
     const container = document.querySelector('.container')
     const loginHtml = `
@@ -39,17 +41,20 @@ export const renderLogin = () => {
     const submitButtonEl = document.querySelector('.button-main')
 
     submitButtonEl.addEventListener('click', () => {
+        console.log('click')
+        if (isEmptyFieldLogin(loginEl) || isEmptyFieldLogin(passwordEl)) {
+            return false
+        }
         login(loginEl.value, passwordEl.value)
-            .then((response) => {
-                return response.json()
-            })
             .then((data) => {
+                console.log('data', data)
                 setToken(data.user.token)
                 setName(data.user.name)
+                renderComments()
             })
             .catch((error) => {
-                if (error.message === 'Введены неккоректные данные') {
-                    alert('Проверьте правильность набора данных!!!')
+                if (error.message === 'Введены неккоректные данные!!!') {
+                    alert(error.message)
                 }
             })
     })

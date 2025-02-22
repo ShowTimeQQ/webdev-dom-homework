@@ -1,5 +1,6 @@
 import { setToken, setName } from './api.js'
 import { registration } from './api.js'
+import { renderFistComments } from '../index.js'
 import { renderLogin } from './renderLogin.js'
 export const renderRegistration = () => {
     const container = document.querySelector('.container')
@@ -54,6 +55,7 @@ export const renderRegistration = () => {
             .then((data) => {
                 setToken(data.user.token)
                 setName(data.user.name)
+                renderFistComments()
             })
     })
 }
