@@ -3,13 +3,9 @@ import { comments, updateComments } from './newComments.js'
 import { sendComment } from './api.js'
 import { getComments } from './api.js'
 
-const commentsEl = document.getElementById('comment')
-const name = document.getElementById('name')
-const comment = document.getElementById('comment')
-
 export const initClickComment = () => {
     const commentsElements = document.querySelectorAll('.comment')
-
+    const comment = document.querySelector('.add-form-text')
     for (const commentElement of commentsElements) {
         commentElement.addEventListener('click', () => {
             const indexli = commentElement.dataset.li
@@ -34,8 +30,9 @@ export function makeLike(el) {
 
 export function add() {
     const buttonEl = document.getElementById('add')
-    const textEl = document.getElementById('comment')
+    const textEl = document.getElementById('formtext')
     const nameEl = document.getElementById('name')
+
     buttonEl.addEventListener('click', function () {
         if (isEmptyField(nameEl) || isEmptyField(textEl)) {
             return false
@@ -44,14 +41,14 @@ export function add() {
         document.querySelector('.add-form').style.display = 'none'
 
         sendComment(
-            name.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),
-            commentsEl.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),
+            nameEl.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),
+            textEl.value.replaceAll('>', '&#62').replaceAll('<', '&#60'),
         )
             .then(() => {
                 document.querySelector('.form-loading').style.display = 'none'
                 document.querySelector('.add-form').style.display = 'flex'
-                name.value = ''
-                commentsEl.value = ''
+                nameEl.value = ''
+                textEl.value = ''
             })
             .then(() => {
                 return getComments()
@@ -74,17 +71,16 @@ export function add() {
 
                 if (error.message === 'Неверный запрос') {
                     alert('Имя и комментарий должны быть не короче 3х символов')
-                    name.classList.add('-error')
-                    commentsEl.classList.add('-error')
+                    nameEl.classList.add('-error')
+                    textEl.classList.add('-error')
                     setTimeout(() => {
-                        name.classList.remove('-error')
-                        commentsEl.classList.remove('-error')
+                        nameEl.classList.remove('-error')
+                        textEl.classList.remove('-error')
                     }, 2000)
                 }
             })
     })
 }
-add()
 
 export function initEventListeners() {
     document.querySelectorAll('.like-button').forEach((el) =>
@@ -96,5 +92,13 @@ export function initEventListeners() {
 }
 
 export function isEmptyField(field) {
+    return field.value === ''
+}
+
+export function isEmptyFieldLogin(field) {
+    return field.value === ''
+}
+
+export function isEmptyFieldRegistration(field) {
     return field.value === ''
 }
