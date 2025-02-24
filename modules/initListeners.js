@@ -1,5 +1,5 @@
-import { renderComments } from './renderComments.js'
-import { comments, updateComments } from './newComments.js'
+import { renderComments } from './renderComments'
+import { comments, updateComments } from './newComments'
 import { sendComment } from './api.js'
 import { getComments } from './api.js'
 

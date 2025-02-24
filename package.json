@@ -12,7 +12,6 @@
     },
     "license": "ISC",
     "author": "Mikhail",
-    "type": "commonjs",
     "main": "index.js",
     "scripts": {
         "dev": "webpack --mode development --watch"
