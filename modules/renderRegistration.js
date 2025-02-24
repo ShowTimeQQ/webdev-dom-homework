@@ -2,7 +2,6 @@ import { setToken, setName } from './api.js'
 import { registration } from './api.js'
 import { renderLogin } from './renderLogin.js'
 import { isEmptyFieldRegistration } from './initListeners.js'
-import { renderComments } from './renderComments.js'
 import { renderFistComments } from '../index.js'
 export const renderRegistration = () => {
     const container = document.querySelector('.container')
