@@ -3,6 +3,7 @@ import { initEventListeners, initClickComment } from './initListeners'
 import { renderLogin } from './renderLogin'
 import { add } from './initListeners'
 import { name, token } from './api'
+import { format } from 'date-fns'
 export const renderComments = () => {
     const container = document.querySelector('.container')
 
@@ -11,7 +12,7 @@ export const renderComments = () => {
             return `<li data-li = "${index}" class="comment">
           <div class="comment-header">
             <div>${comments.author.name}</div>
-            <div>${comments.date}</div>
+            <div>${format(comments.date, 'yyyy-MM-dd')}</div>
           </div>
           <div class="comment-body">
             <div class="comment-text">
