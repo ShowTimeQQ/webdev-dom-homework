@@ -1,0 +1,27 @@
+{
+    "name": "comment",
+    "version": "1.0.0",
+    "description": "https://glebkaf.github.io/webdev-dom-homework/",
+    "homepage": "https://github.com/ShowTimeQQ/webdev-dom-homework#readme",
+    "bugs": {
+        "url": "https://github.com/ShowTimeQQ/webdev-dom-homework/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ShowTimeQQ/webdev-dom-homework.git"
+    },
+    "license": "ISC",
+    "author": "Mikhail",
+    "main": "index.js",
+    "scripts": {
+        "dev": "webpack --mode development --watch",
+        "build": "webpack --mode production"
+    },
+    "devDependencies": {
+        "webpack": "^5.98.0",
+        "webpack-cli": "^6.0.1"
+    },
+    "dependencies": {
+        "date-fns": "^4.1.0"
+    }
+}

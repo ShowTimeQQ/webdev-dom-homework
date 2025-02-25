@@ -1,9 +1,8 @@
-import { setToken, setName } from './api.js'
-import { registration } from './api.js'
-import { renderLogin } from './renderLogin.js'
-import { isEmptyFieldRegistration } from './initListeners.js'
-import { renderComments } from './renderComments.js'
-import { renderFistComments } from '../index.js'
+import { setToken, setName } from './api'
+import { registration } from './api'
+import { renderLogin } from './renderLogin'
+import { isEmptyFieldRegistration } from './initListeners'
+import { renderFistComments } from '../index'
 export const renderRegistration = () => {
     const container = document.querySelector('.container')
     const loginHtml = `
